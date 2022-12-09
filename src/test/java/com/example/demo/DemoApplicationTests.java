@@ -4,13 +4,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -21,26 +18,24 @@ class DemoApplicationTests {
 	TestRestTemplate restTemplate;
 
 	@Test
-	void shouldPropagateHeader() throws URISyntaxException {
-		HttpHeaders headers = new HttpHeaders();
-		headers.set("x-request-id", "world");
-
-		RequestEntity<String> request = new RequestEntity<>(headers, HttpMethod.GET, new URI("/"));
-		ResponseEntity<String> response = restTemplate.exchange(request, String.class);
-
-		assertThat(response.getStatusCode().is2xxSuccessful()).isTrue();
-		assertThat(response.getBody()).isEqualTo("Hello, requestId is: world");
+	void shouldPropagateHeader() {
+		testForEndpoint("/");
 	}
 
 	@Test
-	void shouldManuallyPropagateHeader() throws URISyntaxException {
-		HttpHeaders headers = new HttpHeaders();
-		headers.set("x-request-id", "world");
+	void shouldManuallyPropagateHeader() {
+		testForEndpoint("/manual");
+	}
 
-		RequestEntity<String> request = new RequestEntity<>(headers, HttpMethod.GET, new URI("/manual"));
+	private void testForEndpoint(String endpoint) {
+		RequestEntity<Void> request = RequestEntity
+				.get(URI.create(endpoint))
+				.header("x-request-id", "world")
+				.build();
 		ResponseEntity<String> response = restTemplate.exchange(request, String.class);
 
 		assertThat(response.getStatusCode().is2xxSuccessful()).isTrue();
-		assertThat(response.getBody()).isEqualTo("Hello, requestId is: world");
+		assertThat(response.getBody()).isEqualTo("Hello, world");
 	}
+
 }

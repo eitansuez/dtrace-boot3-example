@@ -72,6 +72,6 @@ class MyController {
 
 	@GetMapping("/hello")
 	public String helloEndpoint(@RequestHeader(value="x-request-id", required=false) String requestId) {
-		return "Hello, requestId is: "+requestId;
+		return "Hello, " + requestId;
 	}
 }
