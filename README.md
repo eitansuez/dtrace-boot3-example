@@ -2,19 +2,23 @@
 
 _How do I propagate a request headers upstream to other services (for distributed tracing)?_
 
-# Test:
+# Automated Test
 
 Run the test `DemoApplicationTests`.
 
-Alternatively, manually:
+```shell
+gradle test
+```
 
-1. In one shell:
+# Manual test:
+
+1. In one shell, run:
 
     ```shell
     gradle bootRun
     ```
 
-1. In a separate shell:
+1. Then, in a separate shell:
 
     ```shell
     curl localhost:8080/ -H "x-request-id: world" 
