@@ -32,4 +32,15 @@ class DemoApplicationTests {
 		assertThat(response.getBody()).isEqualTo("Hello, requestId is: world");
 	}
 
+	@Test
+	void shouldManuallyPropagateHeader() throws URISyntaxException {
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("x-request-id", "world");
+
+		RequestEntity<String> request = new RequestEntity<>(headers, HttpMethod.GET, new URI("/manual"));
+		ResponseEntity<String> response = restTemplate.exchange(request, String.class);
+
+		assertThat(response.getStatusCode().is2xxSuccessful()).isTrue();
+		assertThat(response.getBody()).isEqualTo("Hello, requestId is: world");
+	}
 }
