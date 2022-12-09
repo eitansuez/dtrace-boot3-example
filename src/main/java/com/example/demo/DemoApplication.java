@@ -51,8 +51,8 @@ class MyController {
 	}
 
 	private String localHelloEndpointUrl() {
-		String port = environment.getProperty("local.server.port");
-		String rootUri = "http://localhost:"+port;
+		String serverPort = environment.getProperty("local.server.port");
+		String rootUri = "http://localhost:"+serverPort;
 		return rootUri + "/hello";
 	}
 
