@@ -26,3 +26,7 @@ gradle test
 
 The response should state: `Hello, requestId is: world`
 But instead it states: `Hello, requestId is: null`
+
+
+Clearly, I'm doing something wrong.  But what?
+
