@@ -57,17 +57,17 @@ class MyController {
 	}
 
 	@GetMapping("/manual")
-	public String manualEndpoint(@RequestHeader(value="x-request-id", required=false) String requestId) {
+	public String manualEndpoint(@RequestHeader(value="x-b3-traceid", required=false) String traceId) {
 		String url = localHelloEndpointUrl();
 		System.out.println("calling url "+url);
 
-		RequestEntity<Void> request = RequestEntity.get(URI.create(url)).header("x-request-id", requestId).build();
+		RequestEntity<Void> request = RequestEntity.get(URI.create(url)).header("x-b3-traceid", traceId).build();
 		ResponseEntity<String> response = restTemplate.exchange(request, String.class);
 		return response.getBody();
 	}
 
 	@GetMapping("/hello")
-	public String helloEndpoint(@RequestHeader(value="x-request-id", required=false) String requestId) {
-		return "Hello, " + requestId;
+	public String helloEndpoint(@RequestHeader(value="x-b3-traceid", required=false) String traceId) {
+		return "Hello, " + traceId;
 	}
 }

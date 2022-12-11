@@ -30,7 +30,7 @@ class DemoApplicationTests {
 	private void testForEndpoint(String endpoint) {
 		RequestEntity<Void> request = RequestEntity
 				.get(URI.create(endpoint))
-				.header("x-request-id", "world")
+				.header("x-b3-traceid", "world")
 				.build();
 		ResponseEntity<String> response = restTemplate.exchange(request, String.class);
 
