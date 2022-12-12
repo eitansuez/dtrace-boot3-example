@@ -18,19 +18,19 @@ class DemoApplicationTests {
 	TestRestTemplate restTemplate;
 
 	@Test
-	void shouldPropagateHeader() {
+	void shouldPropagateBaggage() {
 		testForEndpoint("/");
 	}
 
 	@Test
-	void shouldManuallyPropagateHeader() {
+	void shouldManuallyPropagateBaggage() {
 		testForEndpoint("/manual");
 	}
 
 	private void testForEndpoint(String endpoint) {
 		RequestEntity<Void> request = RequestEntity
 				.get(URI.create(endpoint))
-				.header("x-b3-traceid", "world")
+				.header("x-request-id", "world")
 				.build();
 		ResponseEntity<String> response = restTemplate.exchange(request, String.class);
 
