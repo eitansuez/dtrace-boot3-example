@@ -9,12 +9,17 @@ sourceCompatibility = '19'
 
 repositories {
   mavenCentral()
+  maven { url 'https://repo.spring.io/milestone' }
+  maven { url 'https://repo.spring.io/snapshot' }
 }
 
 dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-web'
   implementation 'org.springframework.boot:spring-boot-starter-actuator'
-  implementation 'io.micrometer:micrometer-tracing-bridge-brave'
+
+  implementation platform('io.micrometer:micrometer-tracing-bom:1.0.1-SNAPSHOT')
+  implementation 'io.micrometer:micrometer-tracing-bridge-brave:1.0.1-SNAPSHOT'
+  implementation 'io.micrometer:micrometer-tracing:1.0.1-SNAPSHOT'
 
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
